@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.env
+*.log
+.DS_Store
+*.tsbuildinfo
+
+# Solana keypairs — never commit
+*.json.bak
+*-keypair.json
+
+# IDE
+.vscode/
+.idea/
