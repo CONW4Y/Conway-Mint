@@ -1,0 +1,103 @@
+{
+  "name": "token-launcher",
+  "version": "0.1.0",
+  "description": "Conway Deploy — autonomously deploy memecoins and utility tokens on Solana, manage liquidity, harvest fees, and convert earnings to sustain the automaton's existence.",
+  "author": "automaton",
+  "tools": [
+    {
+      "name": "deploy_memecoin",
+      "description": "Deploy a new memecoin on Solana via pump.fun or direct SPL token creation with Raydium LP",
+      "parameters": {
+        "name": "string - Token name (e.g., 'Cosmic Cat')",
+        "symbol": "string - Token ticker (e.g., 'COSCAT')",
+        "description": "string - Token description for metadata",
+        "imagePrompt": "string - Description for generating token logo",
+        "initialBuySol": "number - SOL for initial price-setting buy (pump.fun)",
+        "lpSol": "number - SOL to pair in Raydium LP",
+        "method": "string - 'pumpfun' | 'raydium' | 'spl_direct'"
+      }
+    },
+    {
+      "name": "deploy_utility_token",
+      "description": "Deploy a utility token with custom supply, metadata, and optional mint/freeze authority",
+      "parameters": {
+        "name": "string - Token name",
+        "symbol": "string - Token ticker",
+        "description": "string - Token description",
+        "supply": "number - Total supply",
+        "decimals": "number - Token decimals (default 9)",
+        "freezeAuthority": "boolean - Whether to retain freeze authority",
+        "lpSol": "number - SOL to pair in LP"
+      }
+    },
+    {
+      "name": "harvest_fees",
+      "description": "Collect accumulated LP fees and creator fees from all deployed tokens",
+      "parameters": {
+        "tokenMint": "string? - Specific token to harvest, or 'all' for everything"
+      }
+    },
+    {
+      "name": "check_portfolio",
+      "description": "Get current status of all deployed tokens - prices, volume, LP positions, earnings",
+      "parameters": {}
+    },
+    {
+      "name": "check_treasury",
+      "description": "Get current treasury status - SOL balance, USDC balance, Conway credits, P&L",
+      "parameters": {}
+    },
+    {
+      "name": "swap_to_usdc",
+      "description": "Swap SOL earnings to USDC via Jupiter",
+      "parameters": {
+        "amountSol": "number - Amount of SOL to swap"
+      }
+    },
+    {
+      "name": "analyze_trends",
+      "description": "Analyze current market trends, memes, and narratives to inform next token launch",
+      "parameters": {
+        "sources": "string[] - Data sources to check: ['twitter', 'reddit', 'dexscreener']"
+      }
+    },
+    {
+      "name": "generate_token_concept",
+      "description": "Use AI to generate a token name, ticker, description, and image concept based on current trends",
+      "parameters": {
+        "theme": "string? - Optional theme or narrative to build around",
+        "style": "string - 'memecoin' | 'utility' | 'community'"
+      }
+    }
+  ],
+  "heartbeat_tasks": [
+    {
+      "name": "portfolio_check",
+      "interval": "*/5 * * * *",
+      "description": "Check portfolio performance every 5 minutes"
+    },
+    {
+      "name": "fee_harvest",
+      "interval": "0 */4 * * *",
+      "description": "Harvest accumulated fees every 4 hours"
+    },
+    {
+      "name": "treasury_rebalance",
+      "interval": "0 */12 * * *",
+      "description": "Rebalance treasury and top up Conway credits every 12 hours"
+    },
+    {
+      "name": "strategy_review",
+      "interval": "0 0 * * *",
+      "description": "Daily strategy review - what worked, what to launch next"
+    }
+  ],
+  "dependencies": [
+    "@solana/web3.js",
+    "@solana/spl-token",
+    "@metaplex-foundation/mpl-token-metadata",
+    "@raydium-io/raydium-sdk-v2",
+    "bs58",
+    "@coral-xyz/anchor"
+  ]
+}
