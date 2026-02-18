@@ -130,6 +130,21 @@ conway-deploy/
     └── fund-devnet.sh           # Devnet SOL airdrop for testing
 ```
 
+## Example: Fetching a Deployed Token
+
+```typescript
+import { Connection, PublicKey } from "@solana/web3.js";
+import { getMint } from "@solana/spl-token";
+
+const connection = new Connection("https://api.mainnet-beta.solana.com");
+const mint = new PublicKey("HDftSa1bDrzL5u9YT29yHivZM83iPyXoEcUKjUVspump");
+
+const mintInfo = await getMint(connection, mint);
+console.log("Supply:", Number(mintInfo.supply) / 10 ** mintInfo.decimals);
+console.log("Decimals:", mintInfo.decimals);
+console.log("Mint Authority:", mintInfo.mintAuthority?.toBase58() ?? "revoked");
+```
+
 ## Configuration
 
 See `.env.example` for all configuration options. Key settings:
